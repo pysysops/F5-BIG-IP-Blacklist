@@ -1,0 +1,9 @@
+when HTTP_REQUEST {
+    if { [class match [IP::client_addr] equals "ext_blocklist" ] } {
+        # Be nice and pass a 403 back?
+        #HTTP::respond 403 content "<HTML><HEAD><TITLE>Rejected Request</TITLE> </HEAD><BODY>The request was rejected. <BR> We are experiencing difficulties at the moment, please try later</BODY></HTML>"
+
+        # Or... just drop.. It's up to you.
+        drop
+    }
+}
