@@ -27,7 +27,7 @@ def main():
     blocklist = set(response.read().splitlines())
 
     for ip in blocklist:
-        # Hacky way to test if it's an IP
+        # Hacky way to test if it's a valid IP
         try:
             socket.inet_aton(ip)
             address_list[0]['members'].append({'netmask':'255.255.255.255', 'address':ip})
@@ -36,7 +36,7 @@ def main():
 
     # Make sure that the list contains some stuff
     if len(address_list[0]['members']) > 0:
-        print len(address_list[0]['members'])
+
         b = bigsuds.BIGIP(hostname = args.host, username = args.username, password = args.password)
         bigtrans = b.with_session_id()
         bigtrans.System.Session.set_transaction_timeout(10)
