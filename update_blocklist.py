@@ -44,8 +44,20 @@ def main():
         try:
             with bigsuds.Transaction(bigtrans):
                 bigtrans.Management.Partition.set_active_partition(args.partition)
-                bigtrans.LocalLB.Class.delete_class(data_group)
-                bigtrans.LocalLB.Class.add_address_class(address_list)
+
+                # So many try's
+                try:
+                    bigtrans.LocalLB.Class.modify_address_class(address_list)
+                except bigsuds.OperationFailed:
+                    try:
+                        bigtrans.LocalLB.Class.add_address_class(address_list)
+                    except bigsuds.OperationFailed:
+                        try:
+                            bigtrans.LocalLB.Class.delete_class(data_group)
+                            bigtrans.LocalLB.Class.add_address_class(address_list)
+                        except bigsuds.OperationFailed, e:
+                            print e
+                            return 1
 
                 # Make sure the updated config is synced between devices
                 bigtrans.System.ConfigSync.synchronize_to_group(args.devicegroup)
