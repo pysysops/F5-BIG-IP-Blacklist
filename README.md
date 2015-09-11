@@ -1,11 +1,7 @@
 # F5-BIG-IP-Blacklist
-This is a quick script I threw together to update a couple of F5 BIG-IP 1600's I used to play with (manage and maintain).
-
-Initially there was no form of blacklisting applied and numerous bots, spammers etc were POSTing and GETing all sorts of stuff to **ALL THE THINGS**.
+This is a quick script I threw together to update IP block lists on a couple of F5 BIG-IP 1600's I used to play with (manage and maintain).
 
 I used the awesome blocklist from the guys over at: [blocklist.de](http://www.blocklist.de/en/index.html) - THANKS GUYS!
-
-Feel free to update this. For example, you could easily add the AWS EC2 IP ranges to prevent cloud based scrapers / DDoS attempts. In fact AWS provide a lovely JSON document at: https://ip-ranges.amazonaws.com/ip-ranges.json which could easily be parsed into the data group.
 
 ```
 usage: update_blocklist.py [-h] -a HOST -u USERNAME -p PASSWORD -g DEVICEGROUP
